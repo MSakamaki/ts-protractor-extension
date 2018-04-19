@@ -2,6 +2,12 @@
 
 [![Build Status](https://travis-ci.org/MSakamaki/ts-protractor-extension.svg?branch=master)](https://travis-ci.org/MSakamaki/ts-protractor-extension)
 
+## install
+
+```sh
+npm install ts-protractor-extension
+```
+
 ## base page object class
 
 use
