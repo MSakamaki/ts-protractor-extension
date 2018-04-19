@@ -7,7 +7,7 @@ node_js:
 branches:
   only: master
 after_failure:
-  - cat /home/travis/build/MSakamaki/pj-reporter/npm-debug.log
+  - cat /home/travis/build/MSakamaki/ts-protractor-extension/npm-debug.log
 script:
   - npm run wdm.update
   - npm run test.all
