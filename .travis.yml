@@ -1,0 +1,15 @@
+language: node_js
+sudo: required
+addons:
+  chrome: stable
+node_js:
+  - stable
+branches:
+  only: master
+after_failure:
+  - cat /home/travis/build/MSakamaki/pj-reporter/npm-debug.log
+script:
+  - npm run wdm.update
+  - npm run test.all
+cache:
+  directories: node_modules

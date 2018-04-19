@@ -1,0 +1,48 @@
+{
+  "name": "ts-protractor-extension",
+  "version": "0.0.1",
+  "description": "typescript extension class for ptoractor",
+  "main": "index.js",
+  "scripts": {
+    "p": "ts-node ./scripts/publish.ts",
+    "wdm.update": "./node_modules/protractor/bin/webdriver-manager update --gecko=false",
+    "checkformat": "prettier src/**/*.ts scripts/*.ts example/*.ts --list-different",
+    "format": "prettier src/**/*.ts scripts/*.ts example/*.ts --write",
+    "e2e": "npm run wdm.update && npm run build && protractor example/conf.js",
+    "build": "npm run clean && tsc -p tsconfig.json",
+    "clean": "del-cli dist",
+    "test.all": "npm run checkformat && npm run e2e"
+  },
+  "keywords": [
+    "protractor",
+    "angular",
+    "test",
+    "e2e",
+    "typescript"
+  ],
+  "engines": {
+    "node": ">=8.9",
+    "npm": "~5.6.0node"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jasmine": "^2.8.6",
+    "@types/jasminewd2": "^2.0.3",
+    "@types/jest": "^22.2.3",
+    "@types/node": "^9.6.5",
+    "del-cli": "^1.1.0",
+    "jasmine-spec-reporter": "^4.2.1",
+    "jest": "^22.4.3",
+    "prettier": "^1.12.1",
+    "protractor": "^5.3.1",
+    "puppeteer": "^1.3.0",
+    "ts-node": "^5.0.1",
+    "tslint-config-prettier": "^1.10.0",
+    "tslint-plugin-prettier": "^1.3.0",
+    "typescript": "^2.8.1"
+  },
+  "dependencies": {
+    "moment": "^2.22.1"
+  }
+}
