@@ -85,13 +85,25 @@ export class AngularMaterialPO extends BasePageObject {
   ) {
     const target = moment({
       year: year,
-      month: month - 1,
+      month: month,
       day: day,
     });
 
     await super.valid([datapickerElement]);
     await datapickerElement.click();
     const popDatepicker = element(by.css('.mat-datepicker-popup'));
+    const currentDATE = await popDatepicker
+      .element(by.css('.mat-calendar-body-today'))
+      .getText();
+    const getCurDt = async () => {
+      return moment(
+        `${await popDatepicker
+          .element(by.css('[aria-label="Choose month and year"]'))
+          .getText()} ${currentDATE}`,
+        'MMM YYYY D',
+      );
+    };
+
     await super.valid([popDatepicker]);
 
     const popDpPeriod = popDatepicker.element(
@@ -111,10 +123,7 @@ export class AngularMaterialPO extends BasePageObject {
       await popDpPeriod.click();
     }
 
-    let curDT = moment(
-      await monthView.getAttribute('ng-reflect-active-date'),
-      'ddd MMM D YYYY HH:mm:ss',
-    );
+    let curDT = await getCurDt();
 
     while (curDT.format('YYYYMM') !== target.format('YYYYMM')) {
       if (target.isAfter(curDT, 'month')) {
@@ -122,10 +131,7 @@ export class AngularMaterialPO extends BasePageObject {
       } else {
         await popDpPrev.click();
       }
-      curDT = moment(
-        await monthView.getAttribute('ng-reflect-active-date'),
-        'ddd MMM D YYYY HH:mm:ss',
-      );
+      curDT = await getCurDt();
     }
 
     await monthView

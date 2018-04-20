@@ -1,6 +1,6 @@
 {
   "name": "ts-protractor-extension",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "typescript extension class for ptoractor",
   "main": "index.js",
   "scripts": {
