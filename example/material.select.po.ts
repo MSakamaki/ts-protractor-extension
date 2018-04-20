@@ -11,7 +11,7 @@ export class MaterialSelectPO extends AngularMaterialPO {
   }
 
   valid() {
-    return super.valid([this.selectExample, this.select]);
+    return super.valid([this.selectExample, this.select, this.selectText]);
   }
 
   get text() {

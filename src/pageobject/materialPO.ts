@@ -1,7 +1,6 @@
-import { browser, by, element, ElementFinder } from 'protractor';
+import { by, element, ElementFinder } from 'protractor';
 import * as moment from 'moment';
 import { BasePageObject } from './basePO';
-import { promise } from 'selenium-webdriver';
 
 /**
  * angular material parent page object class
@@ -17,57 +16,29 @@ export class AngularMaterialPO extends BasePageObject {
    * @param {ElementFineder} pulldownElement element
    * @param {string} targetText pulldown text
    */
-  selectPulldownText(
-    pulldownElement: ElementFinder,
-    targetText: string,
-  ): promise.Promise<void> {
-    return pulldownElement
-      .isPresent()
-      .then(() => pulldownElement.click())
-      .then(() =>
-        browser.wait(
-          () =>
-            this.byCSS('.cdk-overlay-pane .mat-option:first-child').isPresent(),
-          5000,
-        ),
-      )
-      .then(() =>
-        browser.wait(
-          () =>
-            this.byCSS(
-              '.cdk-overlay-pane .mat-option:first-child',
-            ).isDisplayed(),
-          5000,
-        ),
-      )
-      .then(() => {
-        this.byCssAll('.cdk-overlay-pane .mat-option')
-          .filter(elements =>
-            elements.getText().then(text => text === targetText),
-          )
-          .then(elements => {
-            if (elements.length === 0) {
-              throw new Error(
-                `[selectPulldownText] The specified pulldown does not exist`,
-              );
-            } else {
-              return elements;
-            }
-          })
-          .then(elements =>
-            browser.wait(() => elements[0].isDisplayed()).then(() => elements),
-          )
-          .then(elements => elements[0].click())
-          .then(() =>
-            browser.wait(
-              () =>
-                this.byCSS('.cdk-overlay-pane .mat-option:first-child')
-                  .isPresent()
-                  .then(bool => !bool),
-              5000,
-            ),
-          );
-      });
+  async selectPulldownText(pulldownElement: ElementFinder, targetText: string) {
+    const selectOptonsFirst = this.byCSS(
+      '.cdk-overlay-pane .mat-option:first-child',
+    );
+    const selectOptionAll = this.byCssAll('.cdk-overlay-pane .mat-option');
+
+    await super.valid([pulldownElement]);
+    await pulldownElement.click();
+    await super.valid([selectOptonsFirst]);
+    await super.visible([selectOptonsFirst]);
+
+    const selected = selectOptionAll.filter(elem =>
+      elem.getText().then(text => text === targetText),
+    );
+
+    if (await selected.count()) {
+      await selected.first().click();
+    } else {
+      throw new Error(
+        '[selectPulldownText] The specified pulldown does not exist',
+      );
+    }
+    return super.inValid([selectOptonsFirst]);
   }
 
   /**

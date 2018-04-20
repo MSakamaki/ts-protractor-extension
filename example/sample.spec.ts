@@ -11,11 +11,15 @@ const select = new MaterialSelectPO();
 describe('Protractor Tutorial Page', function() {
   it('should have a title', async () => {
     await po.navigateTo();
+    await po.valid();
     expect(po.calculate(1, 2)).toEqual('3');
   });
 
   describe('material data pciker', () => {
-    beforeEach(() => datapicker.navigateTo());
+    beforeEach(async () => {
+      await datapicker.navigateTo();
+      await datapicker.valid();
+    });
 
     const expPtn = async (m: moment.Moment) => {
       await datapicker.selectDataPicker(
@@ -38,6 +42,8 @@ describe('Protractor Tutorial Page', function() {
 
   it('material select', async () => {
     await select.navigateTo();
+    await select.valid();
+    // await select.scrollToElement(select.select)
     await select.selectPulldownText(select.select, 'Pizza');
     expect(select.text).toContain('Pizza');
   });
