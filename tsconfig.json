@@ -22,7 +22,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strictNullChecks": true,
-    "target": "es2016",
+    "target": "es5",
     "types": [
       "jasmine",
       "jest",
