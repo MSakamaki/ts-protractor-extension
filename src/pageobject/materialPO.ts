@@ -2,6 +2,13 @@ import { by, element, ElementFinder } from 'protractor';
 import * as moment from 'moment';
 import { BasePageObject } from './basePO';
 
+export interface PulldownOption {
+  /**
+   * 'hello\n world\n' => 'hello world'
+   */
+  replaceNewLine?: boolean;
+}
+
 /**
  * angular material parent page object class
  * https://material.angular.io/
@@ -16,7 +23,11 @@ export class AngularMaterialPO extends BasePageObject {
    * @param {ElementFineder} pulldownElement element
    * @param {string} targetText pulldown text
    */
-  async selectPulldownText(pulldownElement: ElementFinder, targetText: string) {
+  async selectPulldownText(
+    pulldownElement: ElementFinder,
+    targetText: string,
+    opt: PulldownOption = {},
+  ) {
     const selectOptonsFirst = this.byCSS(
       '.cdk-overlay-pane .mat-option:first-child',
     );
@@ -28,7 +39,9 @@ export class AngularMaterialPO extends BasePageObject {
     await super.visible([selectOptonsFirst]);
 
     const selected = selectOptionAll.filter(elem =>
-      elem.getText().then(text => text === targetText),
+      elem
+        .getText()
+        .then(text => this.trimLine(text, opt.replaceNewLine) === targetText),
     );
 
     if (await selected.count()) {
@@ -122,5 +135,12 @@ export class AngularMaterialPO extends BasePageObject {
         }
       });
     return super.inValid([monthView]);
+  }
+
+  private trimLine(text: string, isTrim = false) {
+    if (isTrim) {
+      return text.replace(/\r?\n|\r/g, '');
+    }
+    return text;
   }
 }

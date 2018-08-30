@@ -1,6 +1,6 @@
 {
   "name": "ts-protractor-extension",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "typescript extension class for ptoractor",
   "main": "index.js",
   "scripts": {
@@ -29,15 +29,15 @@
   "devDependencies": {
     "@types/jasmine": "^2.8.6",
     "@types/jasminewd2": "^2.0.3",
-    "@types/jest": "^22.2.3",
-    "@types/node": "^9.6.5",
+    "@types/jest": "^23.3.1",
+    "@types/node": "^10.9.3",
     "del-cli": "^1.1.0",
     "jasmine-spec-reporter": "^4.2.1",
-    "jest": "^22.4.3",
-    "prettier": "^1.12.1",
+    "jest": "^23.5.0",
+    "prettier": "^1.14.2",
     "protractor": "^5.3.1",
-    "puppeteer": "^1.3.0",
-    "ts-node": "^5.0.1",
+    "puppeteer": "^1.7.0",
+    "ts-node": "^7.0.1",
     "tslint-config-prettier": "^1.10.0",
     "tslint-plugin-prettier": "^1.3.0",
     "typescript": "^2.8.1"
